@@ -8,11 +8,25 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.telegram:telegrambots:6.9.7.1' // библиотека для Telegram Bot API
-    implementation 'org.telegram:telegrambots-spring-boot-starter:6.9.7.1' // упрощает запуск
-    implementation 'org.slf4j:slf4j-simple:2.0.13' // простой логгер
+    implementation 'org.telegram:telegrambots:6.9.7.1'
+    implementation 'org.telegram:telegrambots-abilities:6.9.7.1'
+    implementation 'org.slf4j:slf4j-simple:2.0.13'
 }
 
 application {
+    // Замени на свой пакет и класс с методом main
     mainClass = 'com.example.bot.Main'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass
+        )
+    }
+    // Делаем fat jar
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
