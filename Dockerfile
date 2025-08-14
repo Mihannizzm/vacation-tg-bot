@@ -1,11 +1,14 @@
 # Используем OpenJDK в качестве базового образа
 FROM openjdk:17-jdk-slim
 
-# Создаем рабочую директорию
+# 2. Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем собранный JAR-файл в контейнер
-COPY vacation-tg-bot.jar app.jar
+# 3. Копируем Gradle-файлы и код
+COPY . .
 
-# Указываем команду для запуска бота
-CMD ["java", "-jar", "app.jar"]
+# 4. Собираем jar
+RUN ./gradlew build --no-daemon
+
+# 5. Запускаем
+CMD ["java", "-jar", "build/libs/vacation-tg-bot.jar"]
