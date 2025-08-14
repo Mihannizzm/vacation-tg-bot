@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.telegram:telegrambots:6.9.7.1' // библиотека для Telegram Bot API
+    implementation 'org.telegram:telegrambots-spring-boot-starter:6.9.7.1' // упрощает запуск
+    implementation 'org.slf4j:slf4j-simple:2.0.13' // простой логгер
+}
+
+application {
+    mainClass = 'com.example.bot.Main'
+}
