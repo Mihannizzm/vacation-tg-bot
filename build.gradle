@@ -3,28 +3,40 @@ plugins {
     id 'application'
 }
 
+group = 'com.example'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // или твоя версия Java
+    }
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation 'org.telegram:telegrambots:6.9.7.1'
-    implementation 'org.telegram:telegrambots-abilities:6.9.7.1'
-    implementation 'org.slf4j:slf4j-simple:2.0.13'
+    // добавь сюда остальные зависимости
 }
 
 application {
-    // Замени на свой пакет и класс с методом main
+    // Укажи свой главный класс (с методом public static void main)
     mainClass = 'com.example.bot.Main'
 }
 
-jar {
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.jar {
     manifest {
         attributes(
-                'Main-Class': application.mainClass
+                'Main-Class': application.mainClass.get()
         )
     }
-    // Делаем fat jar
+    // Собираем fat jar (все зависимости в одном jar)
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
