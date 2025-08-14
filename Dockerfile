@@ -11,4 +11,4 @@ COPY . .
 RUN ./gradlew build --no-daemon
 
 # 5. Запускаем
-CMD ["java", "-jar", "build/libs/vacation-tg-bot.jar"]
+CMD ["java", "-jar", "build/libs/vacation-tg-bot-1.0.0.jar"]
