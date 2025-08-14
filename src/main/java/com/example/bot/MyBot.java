@@ -33,7 +33,7 @@ public class MyBot extends TelegramLongPollingBot {
             Long chatId = update.getMessage().getChatId();
 
             switch (text) {
-                case "/start@VacationTimeBot" -> {
+                case "/start@VacationTimeBot", "/start" -> {
                     chatIdForNotifications = chatId;
                     ChatIdStorage.saveChatId(chatId); // Сохраняем в файл
 
@@ -44,19 +44,7 @@ public class MyBot extends TelegramLongPollingBot {
                                     "• /timeleft — сколько осталось до вылета ✈️"
                     );
                 }
-                case "/timeleft@VacationTimeBot" -> sendText(chatId, getTimeLeft());
-                case "/start" -> {
-                    chatIdForNotifications = chatId;
-                    ChatIdStorage.saveChatId(chatId); // Сохраняем в файл
-
-                    sendText(chatId,
-                            "👋 Привет! Я бот-отсчёт до нашей незабываемой поездки в Тайланд 🌴☀️\n\n" +
-                                    "📌 Команды:\n" +
-                                    "• /start — описание бота\n" +
-                                    "• /timeleft — сколько осталось до вылета ✈️"
-                    );
-                }
-                case "/timeleft" -> sendText(chatId, getTimeLeft());
+                case "/timeleft@VacationTimeBot", "/timeleft" -> sendText(chatId, getTimeLeft());
             }
         }
     }
